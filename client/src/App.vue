@@ -43,9 +43,7 @@
           
           <div v-if="orderDetails" class="order-details">
             <h3>Order #{{ orderDetails.id }}</h3>
-            <p><strong>Customer ID:</strong> {{ orderDetails.customerId }}</p>
-            <p><strong>Created:</strong> {{ formatDate(orderDetails.createdAt) }}</p>
-            <p><strong>Total Amount:</strong> ${{ orderDetails.totalAmount.toFixed(2) }}</p>
+            <p><strong>Total Amount:</strong> ${{ orderDetails.total.toFixed(2) }}</p>
             <p><strong>Big Order:</strong> {{ orderDetails.isBigOrder ? '✅ Yes' : '❌ No' }}</p>
             
             <h4>Items:</h4>
@@ -309,6 +307,7 @@ main {
   border-radius: 4px;
   font-size: 1rem;
   box-sizing: border-box;
+  margin-bottom: 1rem;
 }
 
 .items-section {

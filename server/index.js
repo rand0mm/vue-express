@@ -16,9 +16,8 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 // API routes
-app.post('/orders', validateOrder, (req, res) => {
+app.post('/api/orders', validateOrder, (req, res) => {
   try {
     const order = orderService.addOrder(req.body);
     res.status(201).json(order);
@@ -27,7 +26,7 @@ app.post('/orders', validateOrder, (req, res) => {
   }
 });
 
-app.get('/orders/:id', (req, res) => {
+app.get('/api/orders/:id', (req, res) => {
   const id = parseInt(req.params.id, 10);
   const order = orderService.getOrderById(id);
   if (!order) {
@@ -40,7 +39,7 @@ app.get('/orders/:id', (req, res) => {
   });
 });
 
-app.get('/analytics/weekly', (req, res) => {
+app.get('/api/analytics/weekly', (req, res) => {
   const analytics = orderService.getWeeklyAnalytics();
   res.json(analytics);
 });

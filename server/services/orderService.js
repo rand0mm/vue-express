@@ -1,4 +1,3 @@
-// Сервис для работы с заказами и аналитикой
 let orders = [];
 
 function calculateOrderTotal(items) {
