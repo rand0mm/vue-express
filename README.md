@@ -1,6 +1,6 @@
-# Vue + Express Template
+# Order Management System
 
-A full-stack JavaScript application template combining Vue.js 3 (frontend) and Express.js (backend).
+A full-stack Order Management application built with Vue.js 3 (frontend) and Express.js (backend).
 
 ## Features
 
@@ -10,6 +10,8 @@ A full-stack JavaScript application template combining Vue.js 3 (frontend) and E
 - 🔄 **Hot Module Replacement** - Instant feedback during development
 - 🌐 **API Proxy** - Seamless API integration in development
 - 📦 **Simple Structure** - Clean separation of frontend and backend
+- 📊 **Order Management** - Create and view orders with validation
+- 📈 **Analytics** - Weekly order statistics and insights
 
 ## Project Structure
 
@@ -92,7 +94,86 @@ The Express server will serve the built Vue application from the `client/dist` f
 
 ## API Endpoints
 
-The Express server includes example API endpoints:
+### Order Management
+
+#### POST /api/orders
+Create a new order.
+
+**Request Body:**
+```json
+{
+  "customerId": "customer1",
+  "items": [
+    {
+      "productId": "prod1",
+      "qty": 2,
+      "price": 1000
+    }
+  ]
+}
+```
+
+**Response:**
+```json
+{
+  "id": 1,
+  "message": "Order created successfully"
+}
+```
+
+**Validation Rules:**
+- `customerId` is required
+- `items` array must contain at least one item
+- Each item must have `productId`, `qty`, and `price`
+- `qty` must be greater than 0
+- `price` cannot be negative
+
+**Error Response (400):**
+```json
+{
+  "error": "Order must contain at least one item"
+}
+```
+
+#### GET /api/orders/:id
+Get order details by ID.
+
+**Response:**
+```json
+{
+  "id": 1,
+  "customerId": "customer1",
+  "items": [
+    {
+      "productId": "prod1",
+      "qty": 2,
+      "price": 1000
+    }
+  ],
+  "totalAmount": 2000,
+  "isBigOrder": false,
+  "createdAt": "2025-10-02T16:27:16.079Z"
+}
+```
+
+**Notes:**
+- `isBigOrder` is `true` if `totalAmount >= 10000`
+- Returns 404 if order not found
+
+#### GET /api/analytics/weekly
+Get analytics for orders created in the last 7 days.
+
+**Response:**
+```json
+{
+  "ordersCount": 4,
+  "totalAmount": 19000,
+  "bigOrdersCount": 1,
+  "uniqueCustomers": 3
+}
+```
+
+### Utility Endpoints
 
 - `GET /api/hello` - Returns a hello message
 - `GET /api/status` - Returns server status and timestamp
